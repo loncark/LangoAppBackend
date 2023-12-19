@@ -58,7 +58,7 @@ public class UserControllerTest extends BaseControllerTest {
 
     @Test
     public void testUpdate() throws Exception {
-        String requestBody = "{\"id\": \"1\"" +
+        String requestBody = "{\"id\": 3, " +
                 "\"name\": \"Paul\", " +
                 "\"password\": \"paulpassword\", " +
                 "\"roles\": \"ROLE_USER\"}";
@@ -72,6 +72,6 @@ public class UserControllerTest extends BaseControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Paul"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.password").value("paulpassword"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.roles").value("ROLE_USER"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(3));
     }
 }

@@ -3,7 +3,6 @@ package com.loncark.langoapp.service;
 import com.loncark.langoapp.domain.User;
 import com.loncark.langoapp.dto.UserDTO;
 import com.loncark.langoapp.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,8 +28,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<UserDTO> save(User User) {
-        Optional<User> savedUser = Optional.of(userRepository.save(User));
+    public Optional<UserDTO> save(User user) {
+        Optional<User> savedUser = Optional.of(userRepository.save(user));
 
         if(savedUser.isPresent()) {
             return Optional.of(new UserDTO(savedUser.get()));
