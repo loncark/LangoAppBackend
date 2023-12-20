@@ -1,5 +1,6 @@
 delete from userinfo;
 delete from appointment;
+delete from review;
 
 INSERT INTO userinfo (name, password, roles, country, languages, bio)
 VALUES
@@ -19,3 +20,11 @@ VALUES
     ('6', '8', '2024-03-04', 'Online coffee is always a good idea.'),
     ('3', '6', '2024-07-08', 'We have to practice our Russian before it gets stale.'),
     ('4', '7', '2024-06-05', 'Non parliamo inglese pero italiano e molto buono.');
+
+INSERT INTO review (reviewer_id, reviewee_id, stars, review_date, review_text)
+VALUES
+    ('2', '6', '5', '2022-02-06', 'Great guy. Wish I had met him sooner. Great speaker and teacher!'),
+    ('3', '7', '4', '2022-08-01', 'We got off of the wrong foot but the guy is still great. Would not recommend to complete beginners.'),
+    ('6', '8', '1', '2022-03-04', 'Total prick. Knowing four languages does not mean you should boast all the time. Never again.'),
+    ('3', '6', '5', '2021-12-08', 'I learned more in two sessions with him than in my whole highschool. He helped me get a certification, awesome dude!'),
+    ('4', '7', '3', '2021-10-05', 'He is a bit rusty on his english but means well. Perhaps he will get better.');

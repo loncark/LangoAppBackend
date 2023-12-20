@@ -6,10 +6,9 @@ Done:
 - add language, country enum
 - COUNTRY WILL BE JUST A DESCRIPTOR, NOT A SEARCHABLE
 - add languages, bio, country to User
+- add appointments to domain (user1Id, user2Id, date, description)
 
 To do:
-
-- add appointments to domain (user1Id, user2Id, date, description)
 - add reviews to domain (reviewerId, revieweeId, date, description)
 - add messages to domain (senderId, receiverId, dateSent, text)
 

@@ -1,6 +1,6 @@
 package com.loncark.langoapp.repository;
 
-import com.loncark.langoapp.domain.User;
+import com.loncark.langoapp.domain.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-    List<User> findAll();
+public interface ReviewRepository extends JpaRepository<Review, Long> {
+    List<Review> findAll();
 
-    Optional<User> findById(Long id);
+    Optional<Review> findById(Long id);
 
     void deleteById(Long id);
 
-    User save(User user);
+    Review save(Review review);
 }

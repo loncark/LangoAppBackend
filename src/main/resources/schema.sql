@@ -20,5 +20,17 @@ CREATE TABLE IF NOT EXISTS appointment
     FOREIGN KEY (user_id_2) REFERENCES userinfo (id)
 );
 
+CREATE TABLE IF NOT EXISTS review
+(
+    id          INT PRIMARY KEY AUTO_INCREMENT,
+    reviewer_id INT,
+    reviewee_id INT,
+    stars       INT,
+    review_date    DATE,
+    review_text VARCHAR(255),
+    FOREIGN KEY (reviewer_id) REFERENCES userinfo (id),
+    FOREIGN KEY (reviewee_id) REFERENCES userinfo (id)
+);
+
 
 

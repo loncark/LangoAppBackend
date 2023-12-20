@@ -5,23 +5,24 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "appointment")
+@Table(name = "review")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Appointment implements Serializable {
+public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @Column(name = "user_id_1")
-    Long userId1;
-    @Column(name = "user_id_2")
-    Long userId2;
-    @Column(name = "apt_date")
-    LocalDate aptDate;
-    String description;
+    @Column(name = "reviewer_id")
+    Long reviewerId;
+    @Column(name = "reviewee_id")
+    Long revieweeId;
+    @Column(name = "review_date")
+    LocalDate reviewDate;
+    Long stars;
+    @Column(name = "review_text")
+    String reviewText;
 }
