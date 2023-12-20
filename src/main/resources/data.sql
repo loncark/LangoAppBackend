@@ -1,4 +1,5 @@
 delete from userinfo;
+delete from appointment;
 
 INSERT INTO userinfo (name, password, roles, country, languages, bio)
 VALUES
@@ -11,4 +12,10 @@ VALUES
     ('Dieter', 'dieterpassword', 'ROLE_USER', 'GERMANY', 'GERMAN,SPANISH,RUSSIAN,CROATIAN,ENGLISH', 'Hallo! I am Dieter, a polyglot from Germany. My fascination with languages knows no bounds, and I am eager to share this linguistic adventure with you.'),
     ('Alejandro', 'alejandropassword', 'ROLE_USER', 'SPAIN', 'SPANISH,ENGLISH,FRENCH,ITALIAN', '¡Hola! I am Alejandro, a Spanish individual deeply passionate about languages. Let us explore the beauty of communication in its many forms.');
 
-
+INSERT INTO appointment (user_id_1, user_id_2, apt_date, description)
+VALUES
+    ('2', '6', '2023-05-06', 'We are gonna get to know each other.'),
+    ('3', '7', '2023-01-01', 'We are gonna talk some German.'),
+    ('6', '8', '2024-03-04', 'Online coffee is always a good idea.'),
+    ('3', '6', '2024-07-08', 'We have to practice our Russian before it gets stale.'),
+    ('4', '7', '2024-06-05', 'Non parliamo inglese pero italiano e molto buono.');

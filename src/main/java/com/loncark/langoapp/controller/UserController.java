@@ -28,7 +28,7 @@ public class UserController {
     public UserDTO getById(@PathVariable final String id) {
         return userService.findById(Long.parseLong(id))
                 .orElseThrow(
-                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User was not found by that code")
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User was not found by that id")
                 );
     }
 
@@ -36,13 +36,13 @@ public class UserController {
     @PostMapping
     public UserDTO save(@Valid @RequestBody final User user) {
         return userService.save(user)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.CONFLICT, "A User with the same code already exists"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.CONFLICT, "An user with the same id already exists"));
     }
 
     @PutMapping
     public UserDTO update(@Valid @RequestBody final User user) {
         return userService.save(user)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "A User was not found by that id"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "An user was not found by that id"));
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

@@ -31,10 +31,10 @@ public class UserControllerTest extends BaseControllerTest {
     @Test
     public void testDeleteById() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .delete("/users/4"))
+                        .delete("/users/5"))
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/users/4")
+                        .get("/users/5")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
