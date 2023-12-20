@@ -1,7 +1,7 @@
 package com.loncark.langoapp;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.loncark.langoapp.dto.ReviewDTO;
+import com.loncark.langoapp.domain.Review;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -55,7 +55,7 @@ public class ReviewControllerTest extends BaseControllerTest {
 
     @Test
     public void testSave() throws Exception {
-        ReviewDTO newReview = new ReviewDTO();
+        Review newReview = new Review();
         newReview.setReviewerId(3L);
         newReview.setRevieweeId(7L);
         newReview.setStars(4L);
@@ -77,7 +77,7 @@ public class ReviewControllerTest extends BaseControllerTest {
 
     @Test
     public void testUpdate() throws Exception {
-        ReviewDTO updatedReview = new ReviewDTO();
+        Review updatedReview = new Review();
         updatedReview.setId(4L);
         updatedReview.setReviewerId(6L);
         updatedReview.setRevieweeId(8L);

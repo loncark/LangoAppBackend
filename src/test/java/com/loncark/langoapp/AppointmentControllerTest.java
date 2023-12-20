@@ -26,7 +26,7 @@ public class AppointmentControllerTest extends BaseControllerTest {
     @Test
     public void testGetById() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/apts/1")
+                        .get("/appointments/1")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
@@ -36,7 +36,7 @@ public class AppointmentControllerTest extends BaseControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.description").value("We are gonna get to know each other."));
 
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/apts/9999")
+                        .get("/appointments/9999")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
@@ -44,10 +44,10 @@ public class AppointmentControllerTest extends BaseControllerTest {
     @Test
     public void testDeleteById() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .delete("/apts/1"))
+                        .delete("/appointments/1"))
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/apts/1")
+                        .get("/appointments/1")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
@@ -61,7 +61,7 @@ public class AppointmentControllerTest extends BaseControllerTest {
         newAppointment.setDescription("We are gonna talk some German.");
 
         mockMvc.perform(MockMvcRequestBuilders
-                        .post("/apts")
+                        .post("/appointments")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(newAppointment)))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
@@ -82,11 +82,12 @@ public class AppointmentControllerTest extends BaseControllerTest {
         updatedAppointment.setDescription("Online coffee is always a good idea.");
 
         mockMvc.perform(MockMvcRequestBuilders
-                        .put("/apts")
+                        .put("/appointments")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(updatedAppointment)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(4))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.userId1").value(6))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.userId2").value(8))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.aptDate").value("2024-03-04"))

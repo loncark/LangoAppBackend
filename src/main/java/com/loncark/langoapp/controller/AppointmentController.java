@@ -11,7 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/apts")
+@RequestMapping("/appointments")
 public class AppointmentController {
     private final AppointmentService aptService;
 

@@ -26,10 +26,21 @@ CREATE TABLE IF NOT EXISTS review
     reviewer_id INT,
     reviewee_id INT,
     stars       INT,
-    review_date    DATE,
+    review_date DATE,
     review_text VARCHAR(255),
     FOREIGN KEY (reviewer_id) REFERENCES userinfo (id),
     FOREIGN KEY (reviewee_id) REFERENCES userinfo (id)
+);
+
+CREATE TABLE IF NOT EXISTS message
+(
+    id           INT PRIMARY KEY AUTO_INCREMENT,
+    sender_id    INT,
+    receiver_id  INT,
+    date_sent    TIMESTAMP,
+    message_text VARCHAR(255),
+    FOREIGN KEY (receiver_id) REFERENCES userinfo (id),
+    FOREIGN KEY (sender_id) REFERENCES userinfo (id)
 );
 
 
