@@ -1,0 +1,17 @@
+Done:
+- create User, UserDTO, UserRepository, UserController and UserService classes
+- seed database
+- make CRUD endpoints for User
+- make tests for those endpoints
+- add language, country enum
+- COUNTRY WILL BE JUST A DESCRIPTOR, NOT A SEARCHABLE
+- add languages, bio, country to User
+
+To do:
+
+- add appointments to domain (user1Id, user2Id, date, description)
+- add reviews to domain (reviewerId, revieweeId, date, description)
+- add messages to domain (senderId, receiverId, dateSent, text)
+
+Optional:
+- add profile pic to User

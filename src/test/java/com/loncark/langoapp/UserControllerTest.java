@@ -18,7 +18,7 @@ public class UserControllerTest extends BaseControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("John"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.password").value("$2a$10$jfi6MfM2yLz9/EXq6MXDEefljQUBJsz7zrbHmduuqnl.ux9KPgTYi"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.password").value("johnpassword"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.roles").value("ROLE_ADMIN"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1));
 
