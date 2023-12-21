@@ -41,4 +41,15 @@ public class UserServiceImpl implements UserService {
     public void deleteById(Long id) {
         userRepository.deleteById(id);
     }
+
+    @Override
+    public Optional<UserDTO> findByName(String name) {
+        return userRepository.findByName(name).map(user -> new UserDTO(user));
+    }
+
+    @Override
+    public List<UserDTO> findByLanguage(String language) {
+        language = language.toUpperCase();
+        return userRepository.findByLanguagesContaining(language).stream().map(UserDTO::new).collect(Collectors.toList());
+    }
 }

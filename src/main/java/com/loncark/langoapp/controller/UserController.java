@@ -50,4 +50,20 @@ public class UserController {
     public void delete(@PathVariable String id){
         userService.deleteById(Long.parseLong(id));
     }
+
+    // Additional methods for frontend
+
+    @GetMapping(params = "name")
+    public UserDTO getByName(@RequestParam final String name) {
+        return userService.findByName(name)
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User was not found by that name")
+                );
+    }
+
+    @GetMapping(params = "language")
+    public List<UserDTO> getByLanguage(@RequestParam final String language) {
+        return userService.findByLanguage(language);
+    }
+
 }

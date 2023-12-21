@@ -16,4 +16,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     void deleteById(Long id);
 
     User save(User user);
+
+    Optional<User> findByName(String name);
+
+    List<User> findByLanguagesContaining(String language);
 }

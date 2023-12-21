@@ -11,7 +11,9 @@ Done:
 - add messages to domain (senderId, receiverId, dateSent, text)
 
 To do:
-- add and test methods you will need in frontend
+- add and test methods you will need in frontend:
+search users by name, language; search reviews by revieweeId;
+search appointments by userId; search messages by senderId, receiverId;
 
 Optional:
 - add profile pic to User

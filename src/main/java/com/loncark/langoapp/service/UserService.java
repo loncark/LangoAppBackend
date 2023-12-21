@@ -14,4 +14,8 @@ public interface UserService {
     Optional<UserDTO> save(User user);
 
     void deleteById(Long id);
+
+    Optional<UserDTO> findByName(String name);
+
+    List<UserDTO> findByLanguage(String language);
 }

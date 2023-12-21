@@ -74,4 +74,50 @@ public class UserControllerTest extends BaseControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.roles").value("ROLE_USER"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(3));
     }
+
+    @Test
+    public void testGetByName() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/users")
+                        .param("name", "John")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("John"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.password").value("johnpassword"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.roles").value("ROLE_ADMIN"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1));
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/users")
+                        .param("name", "NonExistenUser")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
+    @Test
+    public void testGetByLanguage() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/users")
+                        .param("language", "CROATIAN")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("Marko"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].password").value("markopassword"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].roles").value("ROLE_USER"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(2))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].name").value("Dieter"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].password").value("dieterpassword"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].roles").value("ROLE_USER"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].id").value(7));
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/users")
+                        .param("language", "NonExistentLanguage")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").isEmpty());
+    }
+
 }
