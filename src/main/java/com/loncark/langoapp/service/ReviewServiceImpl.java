@@ -2,6 +2,7 @@ package com.loncark.langoapp.service;
 
 import com.loncark.langoapp.domain.Review;
 import com.loncark.langoapp.dto.ReviewDTO;
+import com.loncark.langoapp.dto.UserDTO;
 import com.loncark.langoapp.repository.ReviewRepository;
 import org.springframework.stereotype.Service;
 
@@ -41,4 +42,11 @@ public class ReviewServiceImpl implements ReviewService {
     public void deleteById(Long id) {
         reviewRepository.deleteById(id);
     }
+
+    @Override
+    public List<ReviewDTO> findByRevieweeId(Long id) {
+        return reviewRepository.findByRevieweeId(id).stream().map(ReviewDTO::new).collect(Collectors.toList());
+    }
+
+
 }

@@ -1,6 +1,7 @@
 package com.loncark.langoapp.repository;
 
 import com.loncark.langoapp.domain.Review;
+import com.loncark.langoapp.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,4 +17,6 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     void deleteById(Long id);
 
     Review save(Review review);
+
+    List<Review> findByRevieweeId(Long id);
 }

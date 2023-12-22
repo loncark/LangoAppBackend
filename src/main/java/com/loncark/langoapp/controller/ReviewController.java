@@ -2,6 +2,7 @@ package com.loncark.langoapp.controller;
 
 import com.loncark.langoapp.domain.Review;
 import com.loncark.langoapp.dto.ReviewDTO;
+import com.loncark.langoapp.dto.UserDTO;
 import com.loncark.langoapp.service.ReviewService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -49,5 +50,10 @@ public class ReviewController {
     @DeleteMapping("{id}")
     public void delete(@PathVariable String id){
         reviewService.deleteById(Long.parseLong(id));
+    }
+
+    @GetMapping(params = "revieweeId")
+    public List<ReviewDTO> getByRevieweeId(@RequestParam final String revieweeId) {
+        return reviewService.findByRevieweeId(Long.parseLong(revieweeId));
     }
 }

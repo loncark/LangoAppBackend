@@ -97,5 +97,33 @@ public class ReviewControllerTest extends BaseControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.reviewDate").value("2022-03-04"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.reviewText").value("Total prick. Knowing four languages does not mean you should boast all the time. Never again."));
     }
+
+    @Test
+    public void testGetByRevieweeId() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/reviews")
+                        .param("revieweeId", "6")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].reviewerId").value("2"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].revieweeId").value("6"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].stars").value("5"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].reviewDate").value("2022-02-06"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].reviewText").value("Great guy. Wish I had met him sooner. Great speaker and teacher!"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].reviewerId").value("3"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].revieweeId").value("6"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].stars").value("5"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].reviewDate").value("2021-12-08"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].reviewText").value("I learned more in two sessions with him than in my whole highschool. He helped me get a certification, awesome dude!"));
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/reviews")
+                        .param("revieweeId", "9999")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").isEmpty());
+    }
+
 }
 

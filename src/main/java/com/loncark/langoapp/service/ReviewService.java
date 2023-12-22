@@ -14,4 +14,6 @@ public interface ReviewService {
     Optional<ReviewDTO> save(Review review);
 
     void deleteById(Long id);
+
+    List<ReviewDTO> findByRevieweeId(Long id);
 }
