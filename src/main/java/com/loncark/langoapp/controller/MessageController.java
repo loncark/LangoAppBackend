@@ -2,6 +2,7 @@ package com.loncark.langoapp.controller;
 
 import com.loncark.langoapp.domain.Message;
 import com.loncark.langoapp.dto.MessageDTO;
+import com.loncark.langoapp.dto.UserDTO;
 import com.loncark.langoapp.service.MessageService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -49,5 +50,10 @@ public class MessageController {
     @DeleteMapping("{id}")
     public void delete(@PathVariable String id){
         messageService.deleteById(Long.parseLong(id));
+    }
+
+    @GetMapping(params = {"senderId", "receiverId"})
+    public List<MessageDTO> getByLanguage(@RequestParam final String senderId, @RequestParam final String receiverId) {
+        return messageService.findBySenderIdAndReceiverId(Long.parseLong(senderId), Long.parseLong(receiverId));
     }
 }

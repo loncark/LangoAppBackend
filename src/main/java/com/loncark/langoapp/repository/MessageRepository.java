@@ -16,4 +16,6 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     void deleteById(Long id);
 
     Message save(Message message);
+
+    List<Message> findBySenderIdAndReceiverId(Long senderId, Long receiverId);
 }

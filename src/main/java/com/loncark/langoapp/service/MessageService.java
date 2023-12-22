@@ -14,4 +14,6 @@ public interface MessageService {
     Optional<MessageDTO> save(Message message);
 
     void deleteById(Long id);
+
+    List<MessageDTO> findBySenderIdAndReceiverId(Long senderId, Long receiverId);
 }

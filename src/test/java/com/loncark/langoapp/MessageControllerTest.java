@@ -1,18 +1,23 @@
 package com.loncark.langoapp;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.loncark.langoapp.domain.Message;
 import com.loncark.langoapp.dto.MessageDTO;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -102,6 +107,28 @@ public class MessageControllerTest extends BaseControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.receiverId").value(6))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.dateSent").value("2022-06-03T09:15:00"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.messageText").value("Skype or Zoom?"));
+    }
+
+    @Test
+    public void testGetBySenderIdAndReceiverId() throws Exception {
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders
+                        .get("/messages")
+                        .param("senderId", "2")
+                        .param("receiverId", "6")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        String jsonResponse = result.getResponse().getContentAsString();
+        List<Map<String, Object>> messages = objectMapper.readValue(jsonResponse, new TypeReference<>() {});
+
+        Assertions.assertEquals(3, messages.size());
+
+        for (Map<String, Object> message : messages) {
+            Assertions.assertEquals(2, message.get("senderId"));
+            Assertions.assertEquals(6, message.get("receiverId"));
+        }
     }
 }
 

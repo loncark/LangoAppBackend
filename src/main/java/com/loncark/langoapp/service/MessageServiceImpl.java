@@ -2,6 +2,7 @@ package com.loncark.langoapp.service;
 
 import com.loncark.langoapp.domain.Message;
 import com.loncark.langoapp.dto.MessageDTO;
+import com.loncark.langoapp.dto.UserDTO;
 import com.loncark.langoapp.repository.MessageRepository;
 import org.springframework.stereotype.Service;
 
@@ -40,5 +41,10 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public void deleteById(Long id) {
         messageRepository.deleteById(id);
+    }
+
+    @Override
+    public List<MessageDTO> findBySenderIdAndReceiverId(Long senderId, Long receiverId) {
+        return messageRepository.findBySenderIdAndReceiverId(senderId, receiverId).stream().map(MessageDTO::new).collect(Collectors.toList());
     }
 }

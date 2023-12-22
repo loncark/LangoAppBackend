@@ -9,11 +9,11 @@ Done:
 - add appointments to domain (user1Id, user2Id, date, description)
 - add reviews to domain (reviewerId, revieweeId, stars, date, description)
 - add messages to domain (senderId, receiverId, dateSent, text)
-
-To do:
 - add and test methods you will need in frontend:
 search users by name, language; search reviews by revieweeId;
-search appointments by userId; search messages by senderId, receiverId;
+search appointments by userId; search messages by senderId and receiverId;
+
+To do:
 
 Optional:
 - add profile pic to User
