@@ -2,6 +2,7 @@ package com.loncark.langoapp.service;
 
 import com.loncark.langoapp.domain.Appointment;
 import com.loncark.langoapp.dto.AppointmentDTO;
+import com.loncark.langoapp.dto.UserDTO;
 import com.loncark.langoapp.repository.AppointmentRepository;
 import org.springframework.stereotype.Service;
 
@@ -40,5 +41,10 @@ public class AppointmentServiceImpl implements AppointmentService{
     @Override
     public void deleteById(Long id) {
         aptRepository.deleteById(id);
+    }
+
+    @Override
+    public List<AppointmentDTO> findByUserId(Long userId) {
+        return aptRepository.findByUserId1EqualsOrUserId2Equals(userId, userId).stream().map(AppointmentDTO::new).collect(Collectors.toList());
     }
 }

@@ -16,4 +16,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     void deleteById(Long id);
 
     Appointment save(Appointment apt);
+
+    List<Appointment> findByUserId1EqualsOrUserId2Equals(Long userId1, Long userId2);
 }

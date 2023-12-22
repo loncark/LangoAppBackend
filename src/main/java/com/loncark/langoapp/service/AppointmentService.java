@@ -14,4 +14,6 @@ public interface AppointmentService {
     Optional<AppointmentDTO> save(Appointment apt);
 
     void deleteById(Long id);
+
+    List<AppointmentDTO> findByUserId(Long userId);
 }

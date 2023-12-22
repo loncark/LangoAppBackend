@@ -1,17 +1,24 @@
 package com.loncark.langoapp;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.loncark.langoapp.domain.Appointment;
 import com.loncark.langoapp.dto.AppointmentDTO;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -93,6 +100,38 @@ public class AppointmentControllerTest extends BaseControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.aptDate").value("2024-03-04"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.description").value("Online coffee is always a good idea."));
     }
+
+    @Test
+    public void testGetByUserId() throws Exception {
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders
+                        .get("/appointments")
+                        .param("userId", "6")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        String jsonResponse = result.getResponse().getContentAsString();
+        List<Map<String, Object>> appointments = objectMapper.readValue(jsonResponse, new TypeReference<>() {
+        });
+
+        for (Map<String, Object> appointment : appointments) {
+            System.out.println(appointment);
+            long userId1 = ((Number) appointment.get("userId1")).longValue();
+            long userId2 = ((Number) appointment.get("userId2")).longValue();
+
+            Assertions.assertTrue(userId1 == 6 || userId2 == 6);
+        }
+
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/appointments")
+                        .param("userId", "9999")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").isEmpty());
+    }
+
 }
 
 

@@ -2,6 +2,7 @@ package com.loncark.langoapp.controller;
 
 import com.loncark.langoapp.domain.Appointment;
 import com.loncark.langoapp.dto.AppointmentDTO;
+import com.loncark.langoapp.dto.UserDTO;
 import com.loncark.langoapp.service.AppointmentService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -49,5 +50,10 @@ public class AppointmentController {
     @DeleteMapping("{id}")
     public void delete(@PathVariable String id){
         aptService.deleteById(Long.parseLong(id));
+    }
+
+    @GetMapping(params = "userId")
+    public List<AppointmentDTO> getByUserId(@RequestParam final String userId) {
+        return aptService.findByUserId(Long.parseLong(userId));
     }
 }
