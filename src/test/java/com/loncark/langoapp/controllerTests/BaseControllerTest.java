@@ -1,4 +1,4 @@
-package com.loncark.langoapp;
+package com.loncark.langoapp.controllerTests;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;

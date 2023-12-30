@@ -2,7 +2,6 @@ package com.loncark.langoapp.service;
 
 import com.loncark.langoapp.domain.Appointment;
 import com.loncark.langoapp.dto.AppointmentDTO;
-import com.loncark.langoapp.dto.UserDTO;
 import com.loncark.langoapp.repository.AppointmentRepository;
 import org.springframework.stereotype.Service;
 

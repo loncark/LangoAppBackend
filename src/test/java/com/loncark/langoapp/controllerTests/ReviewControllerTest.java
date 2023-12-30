@@ -1,4 +1,4 @@
-package com.loncark.langoapp;
+package com.loncark.langoapp.controllerTests;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.loncark.langoapp.domain.Review;

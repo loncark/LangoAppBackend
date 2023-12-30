@@ -1,4 +1,4 @@
-package com.loncark.langoapp;
+package com.loncark.langoapp.controllerTests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
