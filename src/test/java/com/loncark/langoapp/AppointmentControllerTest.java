@@ -2,14 +2,14 @@ package com.loncark.langoapp;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.loncark.langoapp.domain.Appointment;
 import com.loncark.langoapp.dto.AppointmentDTO;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -26,14 +26,21 @@ public class AppointmentControllerTest extends BaseControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
     @Autowired
     private ObjectMapper objectMapper;
+
+    private String validAdminJwt;
+
+    @BeforeEach
+    public void setup() throws Exception {
+        validAdminJwt = getValidAdminJwt();
+    }
 
     @Test
     public void testGetById() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/appointments/1")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + validAdminJwt)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
@@ -44,6 +51,7 @@ public class AppointmentControllerTest extends BaseControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/appointments/9999")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + validAdminJwt)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
@@ -51,10 +59,12 @@ public class AppointmentControllerTest extends BaseControllerTest {
     @Test
     public void testDeleteById() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .delete("/appointments/1"))
+                        .delete("/appointments/1")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + validAdminJwt))
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/appointments/1")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + validAdminJwt)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
@@ -69,6 +79,7 @@ public class AppointmentControllerTest extends BaseControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/appointments")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + validAdminJwt)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(newAppointment)))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
@@ -90,6 +101,7 @@ public class AppointmentControllerTest extends BaseControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders
                         .put("/appointments")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + validAdminJwt)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(updatedAppointment)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -106,6 +118,7 @@ public class AppointmentControllerTest extends BaseControllerTest {
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
                         .get("/appointments")
                         .param("userId", "6")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + validAdminJwt)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
@@ -127,6 +140,7 @@ public class AppointmentControllerTest extends BaseControllerTest {
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/appointments")
                         .param("userId", "9999")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + validAdminJwt)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").isEmpty());

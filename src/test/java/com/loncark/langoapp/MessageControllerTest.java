@@ -5,10 +5,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.loncark.langoapp.domain.Message;
 import com.loncark.langoapp.dto.MessageDTO;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -25,10 +27,15 @@ public class MessageControllerTest extends BaseControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
     @Autowired
     private ObjectMapper objectMapper;
 
+    private String validAdminJwt;
+
+    @BeforeEach
+    public void setup() throws Exception {
+        validAdminJwt = getValidAdminJwt();
+    }
     @Test
     public void testGetById() throws Exception {
         MessageDTO messageDTO = new MessageDTO();
@@ -40,6 +47,7 @@ public class MessageControllerTest extends BaseControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/messages/1")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + validAdminJwt)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
@@ -51,6 +59,7 @@ public class MessageControllerTest extends BaseControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/messages/9999")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + validAdminJwt)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
@@ -58,11 +67,13 @@ public class MessageControllerTest extends BaseControllerTest {
     @Test
     public void testDeleteById() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .delete("/messages/1"))
+                        .delete("/messages/1")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + validAdminJwt))
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/messages/1")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + validAdminJwt)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
@@ -77,6 +88,7 @@ public class MessageControllerTest extends BaseControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/messages")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + validAdminJwt)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(newMessage)))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
@@ -98,6 +110,7 @@ public class MessageControllerTest extends BaseControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders
                         .put("/messages")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + validAdminJwt)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(updatedMessage)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -115,6 +128,7 @@ public class MessageControllerTest extends BaseControllerTest {
                         .get("/messages")
                         .param("senderId", "2")
                         .param("receiverId", "6")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + validAdminJwt)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))

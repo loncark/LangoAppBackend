@@ -2,13 +2,14 @@ package com.loncark.langoapp.controller;
 
 import com.loncark.langoapp.domain.User;
 import com.loncark.langoapp.dto.UserDTO;
+import com.loncark.langoapp.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import com.loncark.langoapp.service.UserService;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -32,11 +33,10 @@ public class UserController {
                 );
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public UserDTO save(@Valid @RequestBody final User user) {
-        return userService.save(user)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.CONFLICT, "An user with the same id already exists"));
+    @ResponseStatus(HttpStatus.CREATED)
+    public Optional<UserDTO> save(@RequestBody User user) {
+        return userService.save(user);
     }
 
     @PutMapping

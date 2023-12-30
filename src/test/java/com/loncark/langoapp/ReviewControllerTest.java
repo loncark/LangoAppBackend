@@ -2,10 +2,12 @@ package com.loncark.langoapp;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.loncark.langoapp.domain.Review;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -19,14 +21,21 @@ public class ReviewControllerTest extends BaseControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
     @Autowired
     private ObjectMapper objectMapper;
+
+    private String validAdminJwt;
+
+    @BeforeEach
+    public void setup() throws Exception {
+        validAdminJwt = getValidAdminJwt();
+    }
 
     @Test
     public void testGetById() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/reviews/1")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + validAdminJwt)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
@@ -38,6 +47,7 @@ public class ReviewControllerTest extends BaseControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/reviews/9999")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + validAdminJwt)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
@@ -45,10 +55,12 @@ public class ReviewControllerTest extends BaseControllerTest {
     @Test
     public void testDeleteById() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .delete("/reviews/1"))
+                        .delete("/reviews/1")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + validAdminJwt))
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/reviews/1")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + validAdminJwt)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
@@ -64,6 +76,7 @@ public class ReviewControllerTest extends BaseControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/reviews")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + validAdminJwt)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(newReview)))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
@@ -87,6 +100,7 @@ public class ReviewControllerTest extends BaseControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders
                         .put("/reviews")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + validAdminJwt)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(updatedReview)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -103,6 +117,7 @@ public class ReviewControllerTest extends BaseControllerTest {
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/reviews")
                         .param("revieweeId", "6")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + validAdminJwt)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
@@ -120,6 +135,7 @@ public class ReviewControllerTest extends BaseControllerTest {
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/reviews")
                         .param("revieweeId", "9999")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + validAdminJwt)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").isEmpty());
