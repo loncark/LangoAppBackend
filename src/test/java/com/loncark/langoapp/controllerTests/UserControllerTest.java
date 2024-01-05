@@ -43,12 +43,10 @@ public class UserControllerTest extends BaseControllerTest {
     @Test
     public void testSave() throws Exception {
         String requestBody = "{\"name\": \"Paul\", " +
-                "\"password\": \"paulpassword\", " +
-                "\"roles\": \"ROLE_USER\"}";
+                "\"password\": \"paulpassword\"}";
 
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/users")
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + validAdminJwt)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
