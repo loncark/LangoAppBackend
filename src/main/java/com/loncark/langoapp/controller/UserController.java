@@ -67,4 +67,9 @@ public class UserController {
         return userService.findByLanguage(language);
     }
 
+    @PostMapping("idList")
+    public List<UserDTO> getUsersByUserIdList(@RequestBody List<Long> idList) {
+        return userService.findByUserIdList(idList);
+    }
+
 }

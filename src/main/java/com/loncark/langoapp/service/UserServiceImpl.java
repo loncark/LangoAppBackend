@@ -76,6 +76,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserDTO> findByUserIdList(List<Long> idList) {
+        return userRepository.findByIdIn(idList).stream().map(UserDTO::new).collect(Collectors.toList());
+    }
+
+    @Override
     public UserDetails UserDtoToUserDetails(Optional<UserDTO> userDTO){
         if (userDTO.isEmpty()) { return null; }
 

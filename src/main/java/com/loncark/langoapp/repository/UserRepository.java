@@ -20,4 +20,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByName(String name);
 
     List<User> findByLanguagesContaining(String language);
+
+    List<User> findByIdIn(List<Long> idList);
 }

@@ -21,5 +21,7 @@ public interface UserService extends UserDetailsService {
 
     List<UserDTO> findByLanguage(String language);
 
+    List<UserDTO> findByUserIdList(List<Long> idlist);
+
     UserDetails UserDtoToUserDetails(Optional<UserDTO> userDTO);
 }
