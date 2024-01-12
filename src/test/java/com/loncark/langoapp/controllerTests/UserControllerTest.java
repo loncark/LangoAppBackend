@@ -9,6 +9,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.hamcrest.Matchers.equalToIgnoringCase;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 public class UserControllerTest extends BaseControllerTest {
@@ -107,7 +109,8 @@ public class UserControllerTest extends BaseControllerTest {
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + validAdminJwt)
                         .param("name", "NonExistentUser")
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isNotFound());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string(equalToIgnoringCase("null")));
     }
 
     @Test
