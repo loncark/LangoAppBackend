@@ -55,11 +55,8 @@ public class UserController {
     // Additional methods for frontend
 
     @GetMapping(params = "name")
-    public UserDTO getByName(@RequestParam final String name) {
-        return userService.findByName(name)
-                .orElseThrow(
-                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User was not found by that name")
-                );
+    public Optional<UserDTO> getByName(@RequestParam final String name) {
+        return userService.findByName(name);
     }
 
     @GetMapping(params = "language")

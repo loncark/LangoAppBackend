@@ -57,7 +57,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<UserDTO> findByName(String name) {
-        return userRepository.findByName(name).map(user -> new UserDTO(user));
+        Optional<User> user = userRepository.findByName(name);
+
+        if(user.isPresent()) {
+            return Optional.of(new UserDTO(user.get()));
+        }
+        else return Optional.empty();
     }
 
     @Override
