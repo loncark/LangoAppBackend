@@ -16,4 +16,6 @@ public interface ReviewService {
     void deleteById(Long id);
 
     List<ReviewDTO> findByRevieweeId(Long id);
+
+    void deleteReviewsTiedToUserWithId(Long id);
 }

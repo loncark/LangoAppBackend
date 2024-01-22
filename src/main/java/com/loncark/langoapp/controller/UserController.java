@@ -5,6 +5,7 @@ import com.loncark.langoapp.dto.UserDTO;
 import com.loncark.langoapp.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -69,7 +70,7 @@ public class UserController {
         return userService.findByUserIdList(idList);
     }
 
-    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping(params = "userId")
     public void deleteTracesOfUserWithId(@RequestParam final String userId) {
         userService.deleteAllTracesOfUserWithId(userId);

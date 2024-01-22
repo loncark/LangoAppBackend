@@ -51,7 +51,7 @@ public class AppointmentRepositoryUnitTest extends MockDataTest {
     @Test
     public void testFindByUserId1EqualsOrUserId2Equals() {
         List<Appointment> actualAppointments = appointmentRepository.findByUserId1EqualsOrUserId2Equals(3L, 3L);
-        assertEquals(2, actualAppointments.size());
+        assertEquals(3, actualAppointments.size());
     }
 }
 

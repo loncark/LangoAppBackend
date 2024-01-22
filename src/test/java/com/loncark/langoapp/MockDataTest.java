@@ -37,7 +37,10 @@ public abstract class MockDataTest {
             new Appointment(2L, 3L, 7L, LocalDate.parse("2023-01-01"), "We are gonna talk some German."),
             new Appointment(3L, 6L, 8L, LocalDate.parse("2024-03-04"), "Online coffee is always a good idea."),
             new Appointment(4L, 3L, 6L, LocalDate.parse("2024-07-08"), "We have to practice our Russian before it gets stale."),
-            new Appointment(5L, 4L, 7L, LocalDate.parse("2024-06-05"), "Non parliamo inglese pero italiano e molto buono.")
+            new Appointment(5L, 4L, 7L, LocalDate.parse("2024-06-05"), "Non parliamo inglese pero italiano e molto buono."),
+            new Appointment(6L, 7L, 6L, LocalDate.parse("2023-05-06"), "I do not know how to use this app, he is going to show me."),
+            new Appointment(7L, 8L, 7L, LocalDate.parse("2023-01-01"), "We will discuss the manuals and which is best for our shared experience."),
+            new Appointment(8L, 3L, 8L, LocalDate.parse("2024-03-04"), "This is only a short meet to figure out if we like each other.")
     );
 
     protected final List<AppointmentDTO> mockAppointmentDTOs = Arrays.asList(
@@ -45,8 +48,12 @@ public abstract class MockDataTest {
             new AppointmentDTO(2L, 3L, 7L, LocalDate.parse("2023-01-01"), "We are gonna talk some German."),
             new AppointmentDTO(3L, 6L, 8L, LocalDate.parse("2024-03-04"), "Online coffee is always a good idea."),
             new AppointmentDTO(4L, 3L, 6L, LocalDate.parse("2024-07-08"), "We have to practice our Russian before it gets stale."),
-            new AppointmentDTO(5L, 4L, 7L, LocalDate.parse("2024-06-05"), "Non parliamo inglese pero italiano e molto buono.")
+            new AppointmentDTO(5L, 4L, 7L, LocalDate.parse("2024-06-05"), "Non parliamo inglese pero italiano e molto buono."),
+            new AppointmentDTO(6L, 7L, 6L, LocalDate.parse("2023-05-06"), "I do not know how to use this app, he is going to show me."),
+            new AppointmentDTO(7L, 8L, 7L, LocalDate.parse("2023-01-01"), "We will discuss the manuals and which is best for our shared experience."),
+            new AppointmentDTO(8L, 3L, 8L, LocalDate.parse("2024-03-04"), "This is only a short meet to figure out if we like each other.")
     );
+
 
     protected final List<Review> mockReviews = Arrays.asList(
             new Review(1L, 2L, 6L, LocalDate.parse("2022-02-06"), 5L, "Great guy. Wish I had met him sooner. Great speaker and teacher!"),

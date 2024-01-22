@@ -23,12 +23,16 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder encoder;
     private final UserRepository userRepository;
     private final AppointmentService aptService;
+    private final ReviewService reviewService;
+    private final MessageService messageService;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, @Lazy PasswordEncoder encoder, AppointmentService aptService) {
+    public UserServiceImpl(UserRepository userRepository, @Lazy PasswordEncoder encoder, AppointmentService aptService, ReviewService reviewService, MessageService messageService) {
         this.userRepository = userRepository;
         this.encoder = encoder;
         this.aptService = aptService;
+        this.reviewService = reviewService;
+        this.messageService = messageService;
     }
 
     @Override
@@ -106,7 +110,10 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void deleteAllTracesOfUserWithId(String userId) {
-        aptService.deleteByUserId(Long.parseLong(userId));
-        deleteById(Long.parseLong(userId));
+        Long id = Long.parseLong(userId);
+        aptService.deleteByUserId(id);
+        reviewService.deleteReviewsTiedToUserWithId(id);
+        messageService.deleteMessagesTiedToUserWithId(id);
+        deleteById(id);
     }
 }

@@ -26,8 +26,11 @@ VALUES ('2', '6', '2023-05-06', 'We are gonna get to know each other.'),
        ('3', '7', '2023-01-01', 'We are gonna talk some German.'),
        ('6', '8', '2024-03-04', 'Online coffee is always a good idea.'),
        ('3', '6', '2024-07-08', 'We have to practice our Russian before it gets stale.'),
-       ('4', '7', '2024-06-05', 'Non parliamo inglese pero italiano e molto buono.');
-/*
+       ('4', '7', '2024-06-05', 'Non parliamo inglese pero italiano e molto buono.'),
+       ('7', '6', '2023-05-06', 'I do not know how to use this app, he is going to show me.'),
+       ('8', '7', '2023-01-01', 'We will discuss the manuals and which is best for our shared experience.'),
+       ('3', '8', '2024-03-04', 'This is only a short meet to figure out if we like each other.');
+
 INSERT INTO review (reviewer_id, reviewee_id, stars, review_date, review_text)
 VALUES ('2', '6', '5', '2022-02-06', 'Great guy. Wish I had met him sooner. Great speaker and teacher!'),
        ('3', '7', '4', '2022-08-01',
@@ -50,4 +53,3 @@ VALUES ('2', '6', '2022-06-02 12:00:00', 'Hey man. Wanna meet and talk?'),
        ('1', '6', '2022-05-30 18:45:00', 'I am just worried that will repeat in the future, I have a nasty temper.'),
        ('6', '1', '2022-06-01 19:15:00', 'Well you will have to work on your patience...'),
        ('6', '1', '2022-06-01 19:15:30', 'You will get there eventually.');
-*/

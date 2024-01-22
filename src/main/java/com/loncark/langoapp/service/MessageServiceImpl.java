@@ -47,4 +47,9 @@ public class MessageServiceImpl implements MessageService {
     public List<MessageDTO> findBySenderIdAndReceiverId(Long senderId, Long receiverId) {
         return messageRepository.findBySenderIdAndReceiverId(senderId, receiverId).stream().map(MessageDTO::new).collect(Collectors.toList());
     }
+
+    @Override
+    public void deleteMessagesTiedToUserWithId(Long id) {
+        messageRepository.deleteBySenderIdEqualsOrReceiverIdEquals(id, id);
+    }
 }

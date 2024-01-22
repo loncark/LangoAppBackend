@@ -4,9 +4,7 @@ import com.loncark.langoapp.MockDataTest;
 import com.loncark.langoapp.domain.User;
 import com.loncark.langoapp.dto.UserDTO;
 import com.loncark.langoapp.repository.UserRepository;
-import com.loncark.langoapp.service.AppointmentService;
-import com.loncark.langoapp.service.UserService;
-import com.loncark.langoapp.service.UserServiceImpl;
+import com.loncark.langoapp.service.*;
 import org.easymock.EasyMock;
 import org.easymock.EasyMockRunner;
 import org.junit.Test;
@@ -26,7 +24,9 @@ public class UserServiceUnitTest extends MockDataTest {
     private final UserRepository userRepository = EasyMock.createMock(UserRepository.class);
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private final AppointmentService aptService = EasyMock.createMock(AppointmentService.class);
-    private final UserService userService = new UserServiceImpl(userRepository, passwordEncoder, aptService);
+    private final ReviewService reviewService = EasyMock.createMock(ReviewService.class);
+    private final MessageService messageService = EasyMock.createMock(MessageService.class);
+    private final UserService userService = new UserServiceImpl(userRepository, passwordEncoder, aptService, reviewService, messageService);
 
     @Test
     public void GivenValidId_WhenFindById_ThenReturnUserDTO() {

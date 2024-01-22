@@ -48,5 +48,10 @@ public class ReviewServiceImpl implements ReviewService {
         return reviewRepository.findByRevieweeId(id).stream().map(ReviewDTO::new).collect(Collectors.toList());
     }
 
+    @Override
+    public void deleteReviewsTiedToUserWithId(Long id) {
+        reviewRepository.deleteByReviewerIdEqualsOrRevieweeIdEquals(id, id);
+    }
+
 
 }

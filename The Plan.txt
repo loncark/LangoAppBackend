@@ -15,6 +15,7 @@ Done:
 
 To do:
 - make delete user an admin method
+- fix tests for message and review not passing (database reference conflict)
 
 Optional:
 - add profile pic to User

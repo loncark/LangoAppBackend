@@ -163,5 +163,15 @@ public class UserControllerTest extends BaseControllerTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").isEmpty());
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/reviews")
+                        .param("revieweeId", "7")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + validAdminJwt)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").isEmpty());
+
+
     }
 }

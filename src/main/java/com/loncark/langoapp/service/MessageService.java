@@ -16,4 +16,6 @@ public interface MessageService {
     void deleteById(Long id);
 
     List<MessageDTO> findBySenderIdAndReceiverId(Long senderId, Long receiverId);
+
+    void deleteMessagesTiedToUserWithId(Long id);
 }
