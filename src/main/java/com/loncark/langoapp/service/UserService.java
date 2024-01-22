@@ -24,4 +24,6 @@ public interface UserService extends UserDetailsService {
     List<UserDTO> findByUserIdList(List<Long> idlist);
 
     UserDetails UserDtoToUserDetails(Optional<UserDTO> userDTO);
+
+    void deleteAllTracesOfUserWithId(String userId);
 }

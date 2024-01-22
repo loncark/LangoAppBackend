@@ -16,4 +16,6 @@ public interface AppointmentService {
     void deleteById(Long id);
 
     List<AppointmentDTO> findByUserId(Long userId);
+
+    void deleteByUserId(Long userId);
 }

@@ -46,4 +46,9 @@ public class AppointmentServiceImpl implements AppointmentService{
     public List<AppointmentDTO> findByUserId(Long userId) {
         return aptRepository.findByUserId1EqualsOrUserId2Equals(userId, userId).stream().map(AppointmentDTO::new).collect(Collectors.toList());
     }
+
+    @Override
+    public void deleteByUserId(Long userId) {
+        aptRepository.deleteByUserId1EqualsOrUserId2Equals(userId, userId);
+    }
 }

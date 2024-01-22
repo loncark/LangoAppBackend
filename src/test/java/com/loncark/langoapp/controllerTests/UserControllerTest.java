@@ -59,6 +59,7 @@ public class UserControllerTest extends BaseControllerTest {
 
     @Test
     public void testDeleteById() throws Exception {
+        // user 5 jedini nema uza sebe bindane appointmente
         mockMvc.perform(MockMvcRequestBuilders
                         .delete("/users/5")
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + validAdminJwt)
@@ -140,4 +141,27 @@ public class UserControllerTest extends BaseControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$").isEmpty());
     }
 
+    @Test
+    public void testDeleteTracesOfUserWithId() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .delete("/users")
+                        .param("userId", "7")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + validAdminJwt)
+                )
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/users/7")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + validAdminJwt)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/appointments")
+                        .param("userId", "7")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + validAdminJwt)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").isEmpty());
+    }
 }

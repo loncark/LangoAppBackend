@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,11 +22,13 @@ public class UserServiceImpl implements UserService {
 
     private final PasswordEncoder encoder;
     private final UserRepository userRepository;
+    private final AppointmentService aptService;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, @Lazy PasswordEncoder encoder) {
+    public UserServiceImpl(UserRepository userRepository, @Lazy PasswordEncoder encoder, AppointmentService aptService) {
         this.userRepository = userRepository;
         this.encoder = encoder;
+        this.aptService = aptService;
     }
 
     @Override
@@ -98,5 +101,12 @@ public class UserServiceImpl implements UserService {
                 userDTO.get().getPassword(),
                 authorities
         );
+    }
+
+    @Override
+    @Transactional
+    public void deleteAllTracesOfUserWithId(String userId) {
+        aptService.deleteByUserId(Long.parseLong(userId));
+        deleteById(Long.parseLong(userId));
     }
 }

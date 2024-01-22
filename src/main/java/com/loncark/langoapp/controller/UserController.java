@@ -69,4 +69,10 @@ public class UserController {
         return userService.findByUserIdList(idList);
     }
 
+    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @DeleteMapping(params = "userId")
+    public void deleteTracesOfUserWithId(@RequestParam final String userId) {
+        userService.deleteAllTracesOfUserWithId(userId);
+    }
+
 }
